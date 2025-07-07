@@ -15,7 +15,7 @@ export default defineConfig({
 
     // Automatically take screenshots on failure
     screenshot: 'only-on-failure', // or 'on' to capture every step
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     video: 'retain-on-failure', // optional: record video for failed tests
     // Optionally, add a custom action to rerun a test if an element is not detected
     actionTimeout: 20000, // increase timeout for actions (optional)
