@@ -1,0 +1,30 @@
+{
+  "product": {
+    "name": "Sale Ripped T-Shirt $55.99 $",    
+    "code": "Ripped T-Shirt", 
+    "size": "M",
+    "label size": "1 / 2"
+  },
+  "user": {
+    "firstName": "Francis",
+    "lastName": "Olivarez",
+    "email": "francis.olivarez@example.com",
+    "address": "123 SAN PEDRO LAGUNA",
+    "city": "San Pedro",
+    "postalCode": "4023",
+    "phone": "123456789"
+  },
+  "card": {
+    "Cardnumber": "4242 4242 4242 4242",
+    "expirationdate": "03 / 28",
+    "cvc": "037"
+  },
+  "delivery": {
+    "standard": "Delivery in 3-5 business days",
+    "standard price": "$5.00",
+    "premium": "Delivery in 2-3 business days",
+    "premium price": "$10.00",
+    "nextday": "Delivery in 1-2 business days",
+    "nextday price": "$15.00"
+  }
+}
