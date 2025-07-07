@@ -1,0 +1,13 @@
+# Playwright + TypeScript Setup for Spree Commerce E2E Tests
+
+## 1. Install Dependencies
+## 2. What to Test
+- User registration and login flows
+- Product search
+- Adding item in the cart
+- Checkout process
+- Payment and order confirmation
+- Validation messages
+
+## 3. How to Test
+run test in the terminal: npx playwright test spreecommercee2e.spec.ts --headed --project=chromium
