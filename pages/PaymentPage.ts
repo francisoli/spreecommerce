@@ -23,12 +23,13 @@ export class PaymentPage {
     }
 
   await this.page.reload({ timeout: 60000 });
-  await this.page.waitForLoadState('load', { timeout: 20000 });
-  await this.page.locator('iframe[title="Secure payment input frame"]').contentFrame().getByRole('textbox', { name: 'Card number' }).waitFor({ state: 'visible' });
-  await this.page.locator('iframe[title="Secure payment input frame"]').contentFrame().getByRole('textbox', { name: 'Card number' }).type(card.Cardnumber, { delay: 50 });
-  await this.page.locator('iframe[title="Secure payment input frame"]').contentFrame().getByRole('textbox', { name: 'Expiration date MM / YY' }).type(card.expirationdate, { delay: 50 });
-  // Try to use alternative selector if not found
   const frame = await this.page.locator('iframe[title="Secure payment input frame"]').contentFrame();
+  await this.page.waitForLoadState('load', { timeout: 20000 });
+  await frame.getByRole('textbox', { name: 'Card number' }).waitFor({ state: 'visible' });
+  await frame.getByRole('textbox', { name: 'Card number' }).type(card.Cardnumber, { delay: 50 });
+  await frame.getByRole('textbox', { name: 'Expiration date MM / YY' }).type(card.expirationdate, { delay: 50 });
+  // Try to use alternative selector if not found
+
   const cvcInput = frame.getByRole('textbox', { name: 'Security code' });
   if (await cvcInput.count() > 0 && await cvcInput.isVisible()) {
     await cvcInput.type(card.cvc, { delay: 50 });
@@ -38,11 +39,26 @@ export class PaymentPage {
     await altCvcInput.waitFor({ state: 'visible', timeout: 5000 });
     await altCvcInput.type(card.cvc, { delay: 50 });
   }
-  // Try to click the email and full name input fields in the iframe
-  await this.page.locator('iframe[title="Secure payment input frame"]').contentFrame().getByRole('textbox', { name: 'Email' }).click();
-  await this.page.locator('iframe[title="Secure payment input frame"]').contentFrame().getByRole('textbox', { name: 'Email' }).type(user.email, { delay: 50 });
-  await this.page.locator('iframe[title="Secure payment input frame"]').contentFrame().getByRole('textbox', { name: 'Full name' }).click();
-  await this.page.locator('iframe[title="Secure payment input frame"]').contentFrame().getByRole('textbox', { name: 'Full name' }).type(user.firstName + ' ' + user.lastName, { delay: 50 });
+  // Fill email and full name fields in the iframe with waits
+
+  // Email field
+  const emailInput = frame.getByRole('textbox', { name: 'Email' });
+  await emailInput.waitFor({ state: 'visible', timeout: 15000 });
+  await emailInput.waitFor({ state: 'attached', timeout: 5000 });
+  await this.page.waitForTimeout(1000);
+  await emailInput.click();
+  await emailInput.clear();
+  await emailInput.fill(user.email);
+
+  // Full name field
+  const fullNameInput = frame.getByRole('textbox', { name: 'Full name' });
+  await fullNameInput.waitFor({ state: 'visible', timeout: 15000 });
+  await fullNameInput.waitFor({ state: 'attached', timeout: 5000 });
+  await this.page.waitForTimeout(1000);
+  await fullNameInput.click();
+  await fullNameInput.clear();
+  await fullNameInput.fill(user.firstName + ' ' + user.lastName);
+  
   await this.page.getByRole('button', { name: 'Pay now' }).dblclick({ timeout: 30000 });
   await this.page.waitForTimeout(10000);
   }

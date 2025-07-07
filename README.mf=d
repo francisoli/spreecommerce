@@ -11,3 +11,7 @@
 
 ## 3. How to Test
 run test in the terminal: npx playwright test spreecommercee2e.spec.ts --headed --project=chromium
+
+To view Playwright traces, use the Playwright CLI:
+Don’t try to just double-click index.html inside the extracted trace.zip. Instead, Open CLI:
+npx playwright show-report C:\\Users\\francis.olivares\\Downloads\\playwright-report
