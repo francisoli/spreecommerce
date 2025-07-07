@@ -30,8 +30,7 @@ jobs:
 
       - name: Upload Playwright Traces
         if: always()
-        run: ls -lR test-results || echo "test-results directory does not exist"
         uses: actions/upload-artifact@v4
         with:
-        name: playwright-traces
-        path: test-results/**/*.zip
+          name: playwright-traces
+          path: test-results/**/*.zip
