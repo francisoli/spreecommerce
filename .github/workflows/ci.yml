@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
-  
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # or your Node version
+          node-version: '20'
 
       - name: Install dependencies
         run: npm ci
@@ -27,3 +27,9 @@ jobs:
 
       - name: Run Playwright tests
         run: npm test
+
+      - name: Upload Playwright Traces
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-traces
+          path: test-results/**/*.zip
